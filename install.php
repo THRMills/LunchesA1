@@ -87,5 +87,6 @@ PRIMARY KEY (OrderID, FoodID)
 );
 ");
 $stmt->execute();
+$stmt->execute(); 
 echo("basket table made");
 ?>
