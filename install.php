@@ -14,7 +14,7 @@
     $stmt1= $conn->prepare("DROP TABLE IF EXISTS tblusers;
     CREATE TABLE tblusers
     (UserID INT(4) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR (20) NOT NULL,
+    Username VARCHAR(20) NOT NULL,
     Surname VARCHAR(20) NOT NULL,
     Forename VARCHAR(20) NOT NULL,
     Password VARCHAR(200) NOT NULL,
@@ -23,19 +23,18 @@
     Role TINYINT(1));
     ");
     $stmt1->execute();
-    //add in some data 
-    $hashedpassword=password_hash("password", PASSWORD_DEFAULT);
+    //add in some default data
+    $hashedpassword=password_hash("password",PASSWORD_DEFAULT);
     echo($hashedpassword);
     $stmt1= $conn->prepare("INSERT INTO tblusers
     (UserID,Username, Surname, Forename, Password, Year, Balance, Role)
     VALUES
-    (NULL,'Kirk.C','Kirk', 'Charlie', :Password, 12, 1000, 1),
-    (NULL,'penty.A','Penty', 'Austen', :Password, 110, 2200, 0)
+    (NULL,'cunniffe.r','Cunniffe', 'Rob', :Password, 12, 10.50, 1),
+    (NULL,'arnold.k','Arnold', 'Kev', :Password, 12, 10.50, 0)
     ");
-   
-   
+    
     $stmt1->bindParam(":Password",$hashedpassword);
-  
+    
     $stmt1->execute();
 
     $stmt1= $conn->prepare("DROP TABLE IF EXISTS tblfood;
@@ -47,26 +46,11 @@
     Price DECIMAL (15,2) NOT NULL);
     ");
     $stmt1->execute();
-    //add in some data 
+    //add in some default data
     $stmt1= $conn->prepare("INSERT INTO tblfood
-    ($row["Name"]." ".$row["Description"]." ".$row["Price"]))
+    (FoodID,Name,Description,Category,Price)
     VALUES
-    ($row["Name"]." ".$row["Description"]." ".$row["Price"])
+    (NULL,'Banna', 'long thing','Fruit', 10),
+    (NULL,''cucumber', 'long thing','vegitable', 20)
     ");
-    
-        $foodCount = $conn->query("SELECT COUNT(*) FROM tblfood")->fetchColumn();
-        if ($foodCount == 0) {
-            $conn->exec("INSERT INTO tblfood (Name, Description, Category, Price) VALUES
-                ('Orange Juice', 'Carton of chilled orange juice', 'drink', 1.20),
-                ('Still Water', '500ml bottled spring water', 'drink', 0.80),
-                ('Crisps', 'Sea salt potato chips', 'snack', 0.90),
-                ('Granola Bar', 'Oat and honey granola bar', 'snack', 1.10),
-                ('Ham Sandwich', 'Ham and cheese on brown bread', 'sandwich', 2.50),
-                ('Veggie Wrap', 'Roasted veg with hummus wrap', 'sandwich', 2.80)");
-        }
-    }
-    catch (PDOException $e) {
-        echo("connection failed " . $e->getMessage() . "<br>");
-    }
-?>
 ?>
