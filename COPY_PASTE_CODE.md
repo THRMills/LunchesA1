@@ -1,3 +1,9 @@
+# Copy-paste ready files
+
+Use the snippets below to replace the matching files in your workspace. Each block is the full file content.
+
+## install.php
+```php
 <?php
     #create variables with server details on
     $servername = "localhost";
@@ -49,3 +55,51 @@
         echo("connection failed " . $e->getMessage() . "<br>");
     }
 ?>
+```
+
+## connection.php
+```php
+<?php
+    $servername="localhost";
+    $username="root";
+    $password="password";
+    $dbname="LunchesA1";
+    try{
+        $conn=new PDO("mysql:host=$servername;dbname=$dbname",$username,$password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        //echo("connected ok");
+    }
+    catch (PDOException $e)
+    {
+        echo("connection failed " .$e->getMessage()."<br>");
+    }
+?>
+```
+
+## processlogin.php
+```php
+<?php
+session_start(); #starts the session if you want to use session variables
+  print_r($_POST);
+  array_map("htmlspecialchars",$_POST);
+  include_once("connection.php");
+  $stmt1= $conn->prepare("SELECT * FROM tblusers WHERE Username=:Username");
+  $stmt1->bindParam(":Username", $_POST["username"]);
+  $stmt1->execute();
+    while ($row = $stmt1->fetch(PDO::FETCH_ASSOC))
+   {
+    if($row["Password"]==$_POST["password"]){
+      echo("valid password");
+      $_SESSION["firstname"]=$row["Forename"];
+      $_SESSION["loggedinuser"]=$row["UserID"];
+      $_SESSION["role"]=$row["Role"];
+
+   }
+    else{
+        echo("Invalid password");
+    }
+
+   }
+
+    ?>
+```
