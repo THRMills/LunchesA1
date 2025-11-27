@@ -1,18 +1,22 @@
 <!DOCTYPE HTML>
 <html>
 <head>          
-    <title>PHP Info</title>
+    <title>Packed lunches</title>
 </head>
 
 <body>
     <?php
         session_start();
-        print_r($_SESSION);
+        //print_r($_SESSION);
+        if (isset($_SESSION["loggedinuser"])){
+            echo("Hello ".$_SESSION["firstname"]);
+        }
     ?>
   <h1>Main Page</h1>
-  <a href= "user.php"> add user </a><br>
-  <a href= "food.php"> add user </a><br>
-  <a href= "login.php"> add user </a><br>
+  <a href= "user.php"> Add user </a><br>
+  <a href= "food.php"> Add food </a><br>
+  <a href= "login.php"> Login </a><br>
+  <a href= "logout.php"> Logout </a><br>
     
 </body>
 </html>

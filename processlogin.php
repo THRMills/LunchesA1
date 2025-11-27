@@ -7,8 +7,10 @@ session_start(); #starts the session if you want to use session variables
   $stmt1->bindParam(":Username", $_POST["username"]);
   $stmt1->execute();
     while ($row = $stmt1->fetch(PDO::FETCH_ASSOC)) 
+    while ($row = $stmt1->fetch(PDO::FETCH_ASSOC))
    {
     if($row["Password"]==$_POST["Password"]){
+    if($row["Password"]==$_POST["password"]){
       echo("valid password");
       $_SESSION["firstname"]=$row["Forename"];
       $_SESSION["loggedinuser"]=$row["UserID"];
@@ -19,6 +21,8 @@ session_start(); #starts the session if you want to use session variables
         echo("Invalid password");
     }
          
+
    }
 
+    ?>
     ?>
