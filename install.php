@@ -10,6 +10,8 @@
     $conn->exec($sql);
     $sql="USE Lunchesa1";
     $conn->exec($sql);
+    
+
     echo("DB made");
     $stmt1= $conn->prepare("DROP TABLE IF EXISTS tblusers;
     CREATE TABLE tblusers
@@ -50,7 +52,7 @@
     $stmt1= $conn->prepare("INSERT INTO tblfood
     (FoodID,Name,Description,Category,Price)
     VALUES
-    (NULL,'Banna', 'long thing','Fruit', 10),
-    (NULL,''cucumber', 'long thing','vegitable', 20)
+    (NULL,'Banna', 'long thing','Snack', 10),
+    (NULL,''cucumber', 'long thing','Snack', 20)
     ");
 ?>
