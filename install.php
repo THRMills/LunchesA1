@@ -2,13 +2,18 @@
 $servername="localhost";
 $username="root";
 $password="password";
+
 $conn= new PDO("mysql:host=$servername",$username,$password);
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$sql="CREATE DATABASE IF NOT EXISTS Lunches";
+
+$sql="CREATE DATABASE IF NOT EXISTS Lunchesa1";
 $conn->exec($sql);
-$sql="USE Lunches";
+
+$sql="USE Lunchesa1";   // <--- CHANGED from Lunches to Lunchesa1
 $conn->exec($sql);
+
 echo("DB created successfully<br>");
+
 // create users table
 $stmt=$conn->prepare("DROP TABLE IF EXISTS tblusers;
 CREATE TABLE tblusers
@@ -24,10 +29,9 @@ Role TINYINT(1)
 ");
 $stmt->execute();
 echo("tblusers created<br>");
-//add in test bed of users
-;
+
+// add in test bed of users
 $hashedpassword=password_hash("password",PASSWORD_DEFAULT);
-//echo($hashedpassword);
 
 $stmt=$conn->prepare("INSERT INTO tblusers 
 (UserID,Username,Surname,Forename,Password,Year,Balance,Role)
@@ -36,11 +40,10 @@ VALUES
 (NULL,'smith.b','Smith','Bob',:Password,12,100,0),
 (NULL,'smith.d','Smith','Dave',:Password,12,100,0)
 ");
-
 $stmt->bindParam(":Password", $hashedpassword);
-
 $stmt->execute();
 
+// food table
 $stmt=$conn->prepare("DROP TABLE IF EXISTS tblfood;
 CREATE TABLE tblfood
 (FoodID INT(4) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -54,19 +57,18 @@ $stmt->execute();
 echo("tblfood created<br>");
 
 $stmt=$conn->prepare("INSERT INTO tblfood 
-    (FoodID,Name,Description,Category,Price)
-    VALUES
-    (NULL,'Coke','the classic Fizzy pop','Drink',1.30),
-    (NULL,'Pepsi','the other classic Fizzy pop','Drink',1.20),
-    (NULL,'Ham Sandwich','Tasty ham sandwich with salad','Sandwich',2.50),
-    (NULL,'Cheese Sandwich','Tasty cheese sandwich with salad','Sandwich',2.00),
-    (NULL,'Boiled Egg','what better way to get some Protein','Snack',1.20),
-    (NULL,'Fruit Salad','A healthy mix of fresh fruit','Snack',1.80)
-    ");
-    
-    
+(FoodID,Name,Description,Category,Price)
+VALUES
+(NULL,'Coke','the classic Fizzy pop','Drink',1.30),
+(NULL,'Pepsi','the other classic Fizzy pop','Drink',1.20),
+(NULL,'Ham Sandwich','Tasty ham sandwich with salad','Sandwich',2.50),
+(NULL,'Cheese Sandwich','Tasty cheese sandwich with salad','Sandwich',2.00),
+(NULL,'Boiled Egg','what better way to get some Protein','Snack',1.20),
+(NULL,'Fruit Salad','A healthy mix of fresh fruit','Snack',1.80)
+");
 $stmt->execute();
 
+// order table
 $stmt=$conn->prepare("DROP TABLE IF EXISTS tblorder;
 CREATE TABLE tblorder
 (OrderID INT(4) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -76,8 +78,9 @@ Orderdate DATETIME
 );
 ");
 $stmt->execute();
-echo("order table made");
+echo("order table made<br>");
 
+// basket table
 $stmt=$conn->prepare("DROP TABLE IF EXISTS tblbasket;
 CREATE TABLE tblbasket
 (OrderID INT(4) NOT NULL,
@@ -87,6 +90,5 @@ PRIMARY KEY (OrderID, FoodID)
 );
 ");
 $stmt->execute();
-$stmt->execute(); 
-echo("basket table made");
+echo("basket table made<br>");
 ?>
