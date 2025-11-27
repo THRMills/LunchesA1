@@ -9,7 +9,7 @@ $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $sql="CREATE DATABASE IF NOT EXISTS Lunchesa1";
 $conn->exec($sql);
 
-$sql="USE Lunchesa1";   // <--- CHANGED from Lunches to Lunchesa1
+$sql="USE Lunchesa1";
 $conn->exec($sql);
 
 echo("DB created successfully<br>");
