@@ -1,10 +1,10 @@
 <?php
-    session_start();
+    /* session_start();
     if ($_SESSION["admin"]==1){
         echo("Hello ".$_SESSION["firstname"]);
     }else{
         header("location: index.php");
-    }
+    } */
     
 ?>
 <!DOCTYPE HTML>
